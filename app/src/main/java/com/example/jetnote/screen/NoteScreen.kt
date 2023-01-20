@@ -24,6 +24,7 @@ import com.example.jetnote.R
 import com.example.jetnote.components.NoteButton
 import com.example.jetnote.components.NoteInputText
 import com.example.jetnote.model.Note
+import com.example.jetnote.util.formatDate
 import java.time.format.DateTimeFormatter
 
 @Composable
@@ -113,8 +114,8 @@ fun NoteRow(modifier : Modifier = Modifier,
         horizontalAlignment = Alignment.Start) {
             Text(note.title,
                 style = MaterialTheme.typography.subtitle2)
-            //Text(note.entryDate.format(DateTimeFormatter.ofPattern("EEE,d MMM")),
-            //    style = MaterialTheme.typography.caption)
+            Text(text = formatDate(note.entryDate.time),
+                style = MaterialTheme.typography.caption)
 
         }
     }
