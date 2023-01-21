@@ -7,6 +7,7 @@ import java.time.Instant
 import java.util.*
 
 @Entity(tableName = "notes_tbl" )
+
 data class Note(
 
     @PrimaryKey

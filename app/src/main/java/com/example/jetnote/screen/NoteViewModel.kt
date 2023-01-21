@@ -1,9 +1,7 @@
 package com.example.jetnote.screen
 
-import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.jetnote.data.NotesDataSource
 import com.example.jetnote.model.Note
 import com.example.jetnote.repository.NoteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +19,7 @@ class NoteViewModel @Inject constructor(private val repository: NoteRepository):
         viewModelScope.launch(Dispatchers.IO) {
             repository.getAllNotes().distinctUntilChanged()
                 .collect{listOfNotes ->
-                    if (listOfNotes.isNotEmpty()) {
+                    if (listOfNotes.isEmpty()) {
 
                     } else {
                       _noteList.value = listOfNotes
@@ -29,7 +27,7 @@ class NoteViewModel @Inject constructor(private val repository: NoteRepository):
 
                 }
         }
-        //noteList.addAll(NotesDataSource().loadNotes())
+
     }
 
      fun addNote(note: Note) = viewModelScope.launch{repository.addNote(note) }
