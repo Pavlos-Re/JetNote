@@ -1,5 +1,7 @@
 package com.example.jetnote.screen
 
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -27,11 +29,13 @@ import com.example.jetnote.model.Note
 import com.example.jetnote.util.formatDate
 import java.time.format.DateTimeFormatter
 
+
 @Composable
 fun NoteScreen(
     notes: List<Note>,
     onAddNote: (Note) -> Unit,
-    onRemoveNote: (Note) -> Unit
+    onRemoveNote: (Note) -> Unit,
+    onUpdateNote: (Note) -> Unit
 ) {
     var title by remember {
         mutableStateOf("")
@@ -89,10 +93,10 @@ fun NoteScreen(
                     onRemoveNote(note)
                 })
             }
-
         }
 
     }
+    
 }
 
 @Composable
@@ -120,10 +124,5 @@ fun NoteRow(modifier : Modifier = Modifier,
         }
     }
 
-}
 
-@Preview
-@Composable
-fun NoteScreenPreview() {
-    NoteScreen(notes = emptyList(), onAddNote = {}, onRemoveNote = {})
 }
