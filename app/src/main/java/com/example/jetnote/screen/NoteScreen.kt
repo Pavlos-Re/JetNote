@@ -1,17 +1,15 @@
 package com.example.jetnote.screen
 
-import android.view.GestureDetector
-import android.view.MotionEvent
 import android.widget.Toast
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Build
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,14 +18,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.VIEW_MODEL_STORE_OWNER_KEY
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.jetnote.R
 import com.example.jetnote.components.NoteButton
 import com.example.jetnote.components.NoteInputText
 import com.example.jetnote.model.Note
 import com.example.jetnote.util.formatDate
-import java.time.format.DateTimeFormatter
 
 
 @Composable
@@ -71,7 +73,7 @@ fun NoteScreen(
                 label = "Add a note",
                 onTextChange = {
                     if (it.all { char ->
-                            char.isLetter() || char.isWhitespace()
+                            char.isDefined()
                         }) description = it
                 })
 
@@ -79,8 +81,8 @@ fun NoteScreen(
                 onClick = {
                     if (title.isNotEmpty() && description.isNotEmpty()) {
                         onAddNote(Note(title = title, description = description))
-                        title = ""
-                        description = ""
+                          title = ""
+                          description = ""
                         Toast.makeText(context, "Note Added", Toast.LENGTH_SHORT).show()
                     }
                 })
@@ -89,14 +91,20 @@ fun NoteScreen(
         Divider(modifier = Modifier.padding(10.dp))
         LazyColumn{
             items(notes) { note ->
-                NoteRow(note = note, onNoteClicked = {
-                    onRemoveNote(note)
-                })
+                NoteRow(note = note, onNoteClicked = {})
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.End, modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(5.dp)) {
+                    Icon(imageVector = Icons.Rounded.Delete, contentDescription = "Delete Icon", modifier = Modifier.clickable { onRemoveNote(note) })
+                    Icon(imageVector = Icons.Rounded.Build, contentDescription = "Update Icon", modifier = Modifier.clickable {
+                        onUpdateNote(updateNote(note)); title = " "}
+                    )
+                }
             }
         }
 
     }
-    
+
 }
 
 @Composable
@@ -113,16 +121,24 @@ fun NoteRow(modifier : Modifier = Modifier,
         elevation = 6.dp) {
         Column(
             modifier
-                .clickable { onNoteClicked(note) }
+                .clickable { }
                 .padding(horizontal = 14.dp, vertical = 6.dp),
         horizontalAlignment = Alignment.Start) {
-            Text(note.title,
+            Text(note.title, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            Text(note.description,
                 style = MaterialTheme.typography.subtitle2)
             Text(text = formatDate(note.entryDate.time),
                 style = MaterialTheme.typography.caption)
-
         }
     }
 
+}
+
+fun updateNote(note: Note ): Note {
+
+        note.title = "Updated"
+        note.description = "Updated"
+
+        return note
 
 }

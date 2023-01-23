@@ -14,10 +14,10 @@ data class Note(
     val id: UUID = UUID.randomUUID(),
 
     @ColumnInfo(name = "note_title")
-    val title: String,
+    var title: String,
 
     @ColumnInfo(name = "note_description")
-    val description: String,
+    var description: String,
 
     @ColumnInfo(name = "note_entry_date")
     val entryDate: Date = Date.from(Instant.now())

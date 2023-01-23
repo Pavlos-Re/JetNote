@@ -20,7 +20,7 @@ class NoteViewModel @Inject constructor(private val repository: NoteRepository):
             repository.getAllNotes().distinctUntilChanged()
                 .collect{listOfNotes ->
                     if (listOfNotes.isEmpty()) {
-                       _noteList.value = emptyList()
+                      _noteList.value = listOfNotes
                     } else {
                       _noteList.value = listOfNotes
                     }

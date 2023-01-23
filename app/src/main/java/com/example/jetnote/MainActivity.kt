@@ -8,10 +8,12 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.viewModelScope
 import com.example.jetnote.screen.NoteScreen
 import com.example.jetnote.screen.NoteViewModel
 import com.example.jetnote.ui.theme.JetNoteTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -45,7 +47,8 @@ fun NotesApp(noteViewModel: NoteViewModel) {
             noteViewModel.addNote(it)
         },
         onUpdateNote = {
-
+            noteViewModel.viewModelScope.launch {
+                noteViewModel.updateNote(it)
+            }
         })
-
 }
