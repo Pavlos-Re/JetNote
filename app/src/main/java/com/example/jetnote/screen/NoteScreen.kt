@@ -18,18 +18,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.VIEW_MODEL_STORE_OWNER_KEY
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.jetnote.R
 import com.example.jetnote.components.NoteButton
 import com.example.jetnote.components.NoteInputText
 import com.example.jetnote.model.Note
 import com.example.jetnote.util.formatDate
+import kotlinx.coroutines.Job
 
 
 @Composable
@@ -96,8 +93,7 @@ fun NoteScreen(
                     .fillMaxWidth()
                     .padding(5.dp)) {
                     Icon(imageVector = Icons.Rounded.Delete, contentDescription = "Delete Icon", modifier = Modifier.clickable { onRemoveNote(note) })
-                    Icon(imageVector = Icons.Rounded.Build, contentDescription = "Update Icon", modifier = Modifier.clickable {
-                        onUpdateNote(updateNote(note)); title = " "}
+                    Icon(imageVector = Icons.Rounded.Build, contentDescription = "Update Icon", modifier = Modifier.clickable { }
                     )
                 }
             }
