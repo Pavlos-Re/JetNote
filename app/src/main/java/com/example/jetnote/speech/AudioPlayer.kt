@@ -1,11 +1,8 @@
-package com.expressdigibooks.android.ui.interfaces
+package com.example.testspeech
 
 import java.io.File
 
 interface AudioPlayer {
     fun playFile(file: File)
-
-    fun playFile(file: File, progress: Float)
-
     fun stop()
 }

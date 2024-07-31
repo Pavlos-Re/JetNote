@@ -1,70 +1,77 @@
-package com.example.testapplicationspeech
+package com.example.testspeech
 
-import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
-import androidx.activity.result.ActivityResultLauncher
-import androidx.lifecycle.lifecycleScope
-import com.example.testapplicationspeech.databinding.ActivityMainBinding
-import com.expressdigibooks.android.ui.assignments.speaking.AndroidAudioPlayer
-import com.expressdigibooks.android.ui.assignments.speaking.AndroidAudioRecorder
-import com.masoudss.lib.WaveformSeekBar
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.io.File
-
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityMainBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        setSupportActionBar(binding.toolbar)
-
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .setAnchorView(R.id.fab).show()
-        }
-
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
-    }
-
-}
+//import android.Manifest
+//import android.app.Activity
+//import android.os.Bundle
+//import androidx.activity.ComponentActivity
+//import androidx.activity.compose.setContent
+//import androidx.activity.enableEdgeToEdge
+//import androidx.compose.foundation.layout.Arrangement
+//import androidx.compose.foundation.layout.Column
+//import androidx.compose.foundation.layout.fillMaxSize
+//import androidx.compose.foundation.layout.padding
+//import androidx.compose.material3.Button
+//import androidx.compose.material3.Scaffold
+//import androidx.compose.material3.Text
+//import androidx.compose.runtime.Composable
+//import androidx.compose.ui.Alignment
+//import androidx.compose.ui.Modifier
+//import androidx.compose.ui.tooling.preview.Preview
+//import androidx.core.app.ActivityCompat
+//import java.io.File
+//
+//class MainActivity : ComponentActivity() {
+//
+//    private val recorder by lazy {
+//       AndroidAudioRecorder(applicationContext)
+//    }
+//
+//    private val player by lazy {
+//        AndroidAudioPlayer(applicationContext)
+//    }
+//
+//    private var audioFile: File? = null
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        enableEdgeToEdge()
+//        ActivityCompat.requestPermissions(
+//            this,
+//            arrayOf(Manifest.permission.RECORD_AUDIO),
+//            0
+//        )
+//        setContent {
+//            TestSpeechTheme {
+//                Column(
+//                    modifier = Modifier.fillMaxSize(),
+//                    verticalArrangement = Arrangement.Center,
+//                    horizontalAlignment = Alignment.CenterHorizontally
+//                ) {
+//                    Button(onClick = {
+//                        File(cacheDir, "audio.mp3").also {
+//                            recorder.start(it)
+//                            audioFile = it
+//                            }
+//                        }) {
+//                        Text(text = "Start recording")
+//                    }
+//                    Button(onClick = {
+//                        recorder.stop()
+//                    }) {
+//                        Text(text = "Stop recording")
+//                    }
+//                    Button(onClick = {
+//                        player.playFile(audioFile ?: return@Button)
+//                    }) {
+//                        Text(text = "Start playing")
+//                    }
+//                    Button(onClick = {
+//                        player.stop()
+//                    }) {
+//                        Text(text = "Stop playing")
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
