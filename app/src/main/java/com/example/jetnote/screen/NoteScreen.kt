@@ -31,7 +31,6 @@ import com.example.jetnote.util.formatDate
 @Composable
 fun NoteScreen(
     noteViewModel: NoteViewModel,
-    notes: List<Note>,
     onAddNote: (Note) -> Unit,
     onRemoveNote: (Note) -> Unit,
     onUpdateNote: (Note) -> Unit,
@@ -39,6 +38,8 @@ fun NoteScreen(
 ) {
 
     val notesList = noteViewModel.noteList.collectAsState().value
+
+    val notes: List<Note> = notesList
 
     var title by remember {
         mutableStateOf("")

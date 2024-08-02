@@ -38,41 +38,59 @@ fun MainScreen(
         startDestination = JetNoteScreen.Start.name
     ) {
         composable(route = JetNoteScreen.Start.name) {
-            NotesApp(noteViewModel = noteViewModel, navController)
-        }
-        composable(route = JetNoteScreen.Speech.name) {
-            SpeechScreen(recorder = recorder, player = player, audioFile = audioFile)
-        }
-    }
+            NoteScreen(
+                noteViewModel = noteViewModel,
+                onAddNote = { noteViewModel.addNote(it) },
+                onRemoveNote = { noteViewModel.removeNote(it) },
+                onUpdateNote = { noteViewModel.updateNote(it) }) {
+                {
 
-    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceAround, horizontalAlignment = Alignment.CenterHorizontally) {
-        NotesApp(noteViewModel, navController)
-        //SpeechRec(recorder = recorder, player = player, audioFile = audioFile)
-    }
-
-}
-
-@Composable
-fun NotesApp(noteViewModel: NoteViewModel, navController: NavHostController) {
-    val notesList = noteViewModel.noteList.collectAsState().value
-
-    NoteScreen(
-        noteViewModel,
-        notes = notesList,
-        onRemoveNote = {
-            noteViewModel.removeNote(it)
-        },
-        onAddNote = {
-            noteViewModel.addNote(it)
-        },
-        onUpdateNote = {
-            noteViewModel.viewModelScope.launch {
-                noteViewModel.updateNote(it)
+                }
             }
-        },
-        onNextButtonClicked = {
-            navController.navigate(JetNoteScreen.Speech.name)
+            composable(route = JetNoteScreen.Speech.name) {
+                SpeechScreen(recorder = recorder, player = player, audioFile = audioFile)
+            }
         }
-    )
+    }
 
-}
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceAround,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            NoteScreen(
+                noteViewModel = noteViewModel,
+                onAddNote = { noteViewModel.addNote(it) },
+                onRemoveNote = { noteViewModel.removeNote(it) },
+                onUpdateNote = { noteViewModel.updateNote(it) }) {
+
+            }
+            //SpeechRec(recorder = recorder, player = player, audioFile = audioFile)
+        }
+
+    }
+
+
+//@Composable
+//fun NotesApp(noteViewModel: NoteViewModel, navController: NavHostController) {
+//    val notesList = noteViewModel.noteList.collectAsState().value
+//
+//    NoteScreen(
+//        noteViewModel,
+//        onRemoveNote = {
+//            noteViewModel.removeNote(it)
+//        },
+//        onAddNote = {
+//            noteViewModel.addNote(it)
+//        },
+//        onUpdateNote = {
+//            noteViewModel.viewModelScope.launch {
+//                noteViewModel.updateNote(it)
+//            }
+//        },
+//        onNextButtonClicked = {
+//            navController.navigate(JetNoteScreen.Speech.name)
+//        }
+//    )
+//
+//}
