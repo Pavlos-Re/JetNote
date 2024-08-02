@@ -26,16 +26,20 @@ import com.example.jetnote.components.NoteButton
 import com.example.jetnote.components.NoteInputText
 import com.example.jetnote.model.Note
 import com.example.jetnote.util.formatDate
-import kotlinx.coroutines.Job
 
 
 @Composable
 fun NoteScreen(
+    noteViewModel: NoteViewModel,
     notes: List<Note>,
     onAddNote: (Note) -> Unit,
     onRemoveNote: (Note) -> Unit,
-    onUpdateNote: (Note) -> Unit
+    onUpdateNote: (Note) -> Unit,
+    onNextButtonClicked: (Int) -> Unit,
 ) {
+
+    val notesList = noteViewModel.noteList.collectAsState().value
+
     var title by remember {
         mutableStateOf("")
     }
@@ -46,7 +50,7 @@ fun NoteScreen(
 
     Column(modifier = Modifier.padding(6.dp)) {
         TopAppBar(title = {
-                          Text(text = stringResource(id = R.string.app_name))
+            Text(text = stringResource(id = R.string.app_name))
         }, actions = {
             Icon(imageVector = Icons.Rounded.Notifications,
                 contentDescription = "Icon")
@@ -54,7 +58,8 @@ fun NoteScreen(
         backgroundColor = Color(0xFFDADFE3))
 
         Column(modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally) {
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween) {
 
             NoteInputText(modifier = Modifier.padding(top = 9.dp, bottom = 8.dp),
                 text = title,
@@ -98,7 +103,9 @@ fun NoteScreen(
                 }
             }
         }
-
+        Button(onClick = { onNextButtonClicked}) {
+            Text(text = "Next Option")
+        }
     }
 
 }
@@ -136,5 +143,4 @@ fun updateNote(note: Note ): Note {
         note.description = "Updated"
 
         return note
-
 }
