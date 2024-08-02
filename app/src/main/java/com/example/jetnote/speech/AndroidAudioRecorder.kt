@@ -1,4 +1,4 @@
-package com.example.testspeech
+package com.example.jetnote.speech
 
 import android.content.Context
 import android.media.MediaRecorder
