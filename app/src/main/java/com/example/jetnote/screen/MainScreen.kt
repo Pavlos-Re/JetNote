@@ -42,11 +42,11 @@ fun MainScreen(
                 noteViewModel = noteViewModel,
                 onAddNote = { noteViewModel.addNote(it) },
                 onRemoveNote = { noteViewModel.removeNote(it) },
-                onUpdateNote = { noteViewModel.updateNote(it) }) {
-                {
-
-                }
-            }
+                onUpdateNote = { noteViewModel.updateNote(it) },
+                onNextButtonClicked = {
+                    println("I AM PRESSED")
+                    navController.navigate(JetNoteScreen.Speech.name)
+                })
             composable(route = JetNoteScreen.Speech.name) {
                 SpeechScreen(recorder = recorder, player = player, audioFile = audioFile)
             }

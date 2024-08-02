@@ -34,7 +34,7 @@ fun NoteScreen(
     onAddNote: (Note) -> Unit,
     onRemoveNote: (Note) -> Unit,
     onUpdateNote: (Note) -> Unit,
-    onNextButtonClicked: (Int) -> Unit,
+    onNextButtonClicked: () -> Unit,
 ) {
 
     val notesList = noteViewModel.noteList.collectAsState().value
@@ -104,7 +104,7 @@ fun NoteScreen(
                 }
             }
         }
-        Button(onClick = { onNextButtonClicked}) {
+        Button(onClick = onNextButtonClicked) {
             Text(text = "Next Option")
         }
     }
