@@ -6,18 +6,22 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.jetnote.R
 import com.example.jetnote.speech.AndroidAudioPlayer
 import com.example.jetnote.speech.AndroidAudioRecorder
+import androidx.compose.runtime.getValue
 import kotlinx.coroutines.launch
 import java.io.File
+import java.lang.String.valueOf
 
 enum class JetNoteScreen(@StringRes val title: Int) {
     Start(title = R.string.app_name),
@@ -35,7 +39,8 @@ fun MainScreen(
 
     NavHost(
         navController = navController,
-        startDestination = JetNoteScreen.Start.name
+        startDestination = JetNoteScreen.Start.name,
+        modifier = Modifier.fillMaxSize()
     ) {
         composable(route = JetNoteScreen.Start.name) {
             NoteScreen(
@@ -44,53 +49,20 @@ fun MainScreen(
                 onRemoveNote = { noteViewModel.removeNote(it) },
                 onUpdateNote = { noteViewModel.updateNote(it) },
                 onNextButtonClicked = {
-                    println("I AM PRESSED")
                     navController.navigate(JetNoteScreen.Speech.name)
-                })
-            composable(route = JetNoteScreen.Speech.name) {
-                SpeechScreen(recorder = recorder, player = player, audioFile = audioFile)
-            }
+                },
+                modifier = Modifier.fillMaxSize())
+        }
+        composable(route = JetNoteScreen.Speech.name) {
+            SpeechScreen(
+                recorder = recorder,
+                player = player,
+                audioFile = audioFile,
+                onNextButtonClicked = {
+                    navController.navigate(JetNoteScreen.Start.name)
+                },
+                modifier = Modifier.fillMaxSize())
         }
     }
 
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceAround,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            NoteScreen(
-                noteViewModel = noteViewModel,
-                onAddNote = { noteViewModel.addNote(it) },
-                onRemoveNote = { noteViewModel.removeNote(it) },
-                onUpdateNote = { noteViewModel.updateNote(it) }) {
-
-            }
-            //SpeechRec(recorder = recorder, player = player, audioFile = audioFile)
-        }
-
     }
-
-
-//@Composable
-//fun NotesApp(noteViewModel: NoteViewModel, navController: NavHostController) {
-//    val notesList = noteViewModel.noteList.collectAsState().value
-//
-//    NoteScreen(
-//        noteViewModel,
-//        onRemoveNote = {
-//            noteViewModel.removeNote(it)
-//        },
-//        onAddNote = {
-//            noteViewModel.addNote(it)
-//        },
-//        onUpdateNote = {
-//            noteViewModel.viewModelScope.launch {
-//                noteViewModel.updateNote(it)
-//            }
-//        },
-//        onNextButtonClicked = {
-//            navController.navigate(JetNoteScreen.Speech.name)
-//        }
-//    )
-//
-//}

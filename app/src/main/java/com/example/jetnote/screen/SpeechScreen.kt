@@ -14,11 +14,15 @@ import com.example.jetnote.speech.AndroidAudioRecorder
 import java.io.File
 
 @Composable
-fun SpeechScreen(recorder: AndroidAudioRecorder, player: AndroidAudioPlayer, audioFile: File?) {
+fun SpeechScreen(
+    recorder: AndroidAudioRecorder,
+    player: AndroidAudioPlayer,
+    audioFile: File?,
+    onNextButtonClicked: () -> Unit,
+    modifier: Modifier) {
 
     Column(
-        modifier = Modifier.padding(6.dp),
-        verticalArrangement = Arrangement.Center,
+        modifier,verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
@@ -51,8 +55,8 @@ fun SpeechScreen(recorder: AndroidAudioRecorder, player: AndroidAudioPlayer, aud
                 Text(text = "Stop playing")
             }
         }
-        Button(onClick = { }) {
-            Text(text = "Next Option")
+        Button(onClick = { onNextButtonClicked() }) {
+            Text(text = "TEXT")
         }
     }
 

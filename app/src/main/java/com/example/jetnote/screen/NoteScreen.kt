@@ -35,6 +35,7 @@ fun NoteScreen(
     onRemoveNote: (Note) -> Unit,
     onUpdateNote: (Note) -> Unit,
     onNextButtonClicked: () -> Unit,
+    modifier: Modifier
 ) {
 
     val notesList = noteViewModel.noteList.collectAsState().value
@@ -49,7 +50,8 @@ fun NoteScreen(
     }
     val context = LocalContext.current
 
-    Column(modifier = Modifier.padding(6.dp)) {
+    Column(modifier,verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally) {
         TopAppBar(title = {
             Text(text = stringResource(id = R.string.app_name))
         }, actions = {
@@ -104,8 +106,8 @@ fun NoteScreen(
                 }
             }
         }
-        Button(onClick = onNextButtonClicked) {
-            Text(text = "Next Option")
+        Button(onClick = { onNextButtonClicked() }) {
+            Text(text = "SPEECH")
         }
     }
 
