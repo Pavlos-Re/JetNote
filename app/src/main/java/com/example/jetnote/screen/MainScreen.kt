@@ -19,12 +19,15 @@ import com.example.jetnote.R
 import com.example.jetnote.speech.AndroidAudioPlayer
 import com.example.jetnote.speech.AndroidAudioRecorder
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.jetnote.ui.theme.JetNoteTheme
 import kotlinx.coroutines.launch
 import java.io.File
 import java.lang.String.valueOf
 
 enum class JetNoteScreen(@StringRes val title: Int) {
-    Start(title = R.string.app_name),
+    Start(title = R.string.main_screen),
+    Text(title = R.string.text_option),
     Speech(title = R.string.speech_option)
 }
 
@@ -43,13 +46,19 @@ fun MainScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         composable(route = JetNoteScreen.Start.name) {
+            IntroductoryScreen(
+                modifier = Modifier.fillMaxSize(),
+                onChoiceTextButtonClicked = { navController.navigate(JetNoteScreen.Text.name)},
+                onChoiceSpeechButtonClicked = { navController.navigate(JetNoteScreen.Speech.name)})
+        }
+        composable(route = JetNoteScreen.Text.name) {
             NoteScreen(
                 noteViewModel = noteViewModel,
                 onAddNote = { noteViewModel.addNote(it) },
                 onRemoveNote = { noteViewModel.removeNote(it) },
                 onUpdateNote = { noteViewModel.updateNote(it) },
                 onNextButtonClicked = {
-                    navController.navigate(JetNoteScreen.Speech.name)
+                    navController.navigate(JetNoteScreen.Start.name)
                 },
                 modifier = Modifier.fillMaxSize())
         }
@@ -63,6 +72,8 @@ fun MainScreen(
                 },
                 modifier = Modifier.fillMaxSize())
         }
+
     }
 
     }
+

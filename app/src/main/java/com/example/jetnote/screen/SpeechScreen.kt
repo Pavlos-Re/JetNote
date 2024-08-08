@@ -2,6 +2,9 @@ package com.example.jetnote.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -22,13 +25,12 @@ fun SpeechScreen(
     modifier: Modifier) {
 
     Column(
-        modifier,verticalArrangement = Arrangement.Center,
+        modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
             modifier = Modifier.padding(6.dp),
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(onClick = {
                 audioFile.also {
@@ -55,9 +57,17 @@ fun SpeechScreen(
                 Text(text = "Stop playing")
             }
         }
-        Button(onClick = { onNextButtonClicked() }) {
-            Text(text = "TEXT")
+        Column(
+            modifier = Modifier.fillMaxSize().padding(bottom = 10.dp),
+            verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+
+            Button(onClick = { onNextButtonClicked() }) {
+                Text(text = "Back")
+            }
         }
+
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.jetnote.speech
 import android.content.Context
 import android.media.MediaRecorder
 import android.os.Build
+import android.os.Environment
 import java.io.File
 import java.io.FileOutputStream
 
@@ -31,6 +32,10 @@ class AndroidAudioRecorder(
 
             recorder = this
         }
+
+//        val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+//        val outputFile = File(downloadsDir, "audio.mp3")
+
     }
 
     override fun stop() {

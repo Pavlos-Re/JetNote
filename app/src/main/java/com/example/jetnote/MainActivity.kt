@@ -5,12 +5,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityCompat
 import com.example.jetnote.ui.theme.JetNoteTheme
 import com.example.jetnote.speech.AndroidAudioPlayer
 import com.example.jetnote.speech.AndroidAudioRecorder
 import java.io.File
 import com.example.jetnote.screen.MainScreen
+import com.example.jetnote.screen.NoteScreen
 import com.example.jetnote.screen.NoteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
