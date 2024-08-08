@@ -29,7 +29,6 @@ import com.example.jetnote.model.Note
 import com.example.jetnote.ui.theme.JetNoteTheme
 import com.example.jetnote.util.formatDate
 
-
 @Composable
 fun NoteScreen(
     noteViewModel: NoteViewModel,

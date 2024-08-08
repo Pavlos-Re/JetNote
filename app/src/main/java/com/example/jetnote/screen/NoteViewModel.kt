@@ -65,7 +65,6 @@ class NoteViewModel @Inject constructor(private val repository: NoteRepository):
             if (fileOutputStream != null) {
                 try {
                     fileOutputStream.close()
-                    println("BYE BYE")
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }

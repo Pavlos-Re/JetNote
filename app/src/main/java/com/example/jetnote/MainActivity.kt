@@ -2,6 +2,7 @@ package com.example.jetnote
 
 import android.Manifest
 import android.os.Bundle
+import android.os.Environment
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -33,7 +34,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        audioFile = File(cacheDir, "audio.mp3")
+        val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
+
+        //val outputFile = File(downloadsDir, "audio.mp3")
+
+        audioFile = File(downloadsDir, "audio.mp3")
         val noteViewModel: NoteViewModel by viewModels()
 
         ActivityCompat.requestPermissions(

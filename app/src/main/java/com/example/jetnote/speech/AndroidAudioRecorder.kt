@@ -33,8 +33,7 @@ class AndroidAudioRecorder(
             recorder = this
         }
 
-//        val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-//        val outputFile = File(downloadsDir, "audio.mp3")
+
 
     }
 
