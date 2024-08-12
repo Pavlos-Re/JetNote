@@ -19,15 +19,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jetnote.R
 import com.example.jetnote.components.NoteButton
 import com.example.jetnote.components.NoteInputText
 import com.example.jetnote.model.Note
-import com.example.jetnote.ui.theme.JetNoteTheme
 import com.example.jetnote.util.formatDate
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
+import okio.IOException
 
 @Composable
 fun NoteScreen(
@@ -50,6 +54,7 @@ fun NoteScreen(
         mutableStateOf("")
     }
     val context = LocalContext.current
+
 
     Column(modifier,
 
@@ -111,12 +116,18 @@ fun NoteScreen(
             }
         }
         Column(
-            modifier = Modifier.fillMaxSize().padding(bottom = 10.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 10.dp),
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally,
             ) {
 
-                Button(onClick = { onNextButtonClicked() }) {
+                Button(onClick = {
+                    onNextButtonClicked()
+                    //val mediaType = "text/x-markdown; charset=utf-8".toMediaType()
+                    noteViewModel.run()
+                }) {
                     Text(text = "Back")
                 }
         }

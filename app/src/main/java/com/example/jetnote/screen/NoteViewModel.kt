@@ -10,6 +10,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import okhttp3.FormBody
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -20,6 +27,13 @@ import kotlin.coroutines.CoroutineContext
 class NoteViewModel @Inject constructor(private val repository: NoteRepository): ViewModel() {
     private var _noteList = MutableStateFlow<List<Note>>(emptyList())
     val noteList = _noteList.asStateFlow()
+
+    private val client = OkHttpClient()
+    val MEDIA_TYPE_MARKDOWN = "text/x-markdown; charset=utf-8".toMediaType()
+    val folder: File =
+        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+    val file = File(folder, "geeksData.txt")
+
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -70,6 +84,33 @@ class NoteViewModel @Inject constructor(private val repository: NoteRepository):
                 }
             }
         }
+    }
+
+    fun run() {
+        viewModelScope.launch(Dispatchers.IO) {
+
+//            val formBody = FormBody.Builder()
+//                .add("test", "Jurassic Park")
+//                .build()
+//
+//            val request = Request.Builder()
+//                .url("http://10.101.176.40:5000/test")
+//                .post(formBody)
+//                .build()
+
+            val file = File("geeksData.txt")
+
+            val request = Request.Builder()
+                .url("http://10.101.176.40:5000/test")
+                .post(file.asRequestBody(MEDIA_TYPE_MARKDOWN))
+                .build()
+
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+                println(response.body!!.string())
+            }
         }
+    }
 
 }
