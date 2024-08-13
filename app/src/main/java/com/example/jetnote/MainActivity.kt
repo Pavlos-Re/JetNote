@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
 
         //val outputFile = File(downloadsDir, "audio.mp3")
 
-        audioFile = File(downloadsDir, "audio.mp3")
+        audioFile = File(downloadsDir, "audio.wav")
         val noteViewModel: NoteViewModel by viewModels()
 
         ActivityCompat.requestPermissions(

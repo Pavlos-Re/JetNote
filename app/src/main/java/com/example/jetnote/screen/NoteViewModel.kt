@@ -11,16 +11,13 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import okhttp3.FormBody
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -84,17 +81,6 @@ class NoteViewModel @Inject constructor(private val repository: NoteRepository):
     fun run() {
         viewModelScope.launch(Dispatchers.IO) {
 
-//            val formBody = FormBody.Builder()
-//                .add("test", "Jurassic Park")
-//                .build()
-//
-//            val request = Request.Builder()
-//                .url("http://10.101.176.40:5000/test")
-//                .post(formBody)
-//                .build()
-
-            //val file = File("geeksData.txt")
-
             val postBody = _noteList.value.last().description
 
             val formBody = FormBody.Builder()
@@ -102,7 +88,7 @@ class NoteViewModel @Inject constructor(private val repository: NoteRepository):
                 .build()
 
             val request = Request.Builder()
-                .url("http://10.101.176.109:5000/test")
+                .url("http://192.168.1.47:5000/test")
                 .post(formBody)
                 .build()
 
